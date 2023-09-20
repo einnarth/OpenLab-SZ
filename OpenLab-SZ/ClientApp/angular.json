@@ -132,5 +132,8 @@
       }
     }
   },
-  "defaultProject": "OpenLab_SZ"
+  "defaultProject": "OpenLab_SZ",
+  "cli": {
+    "analytics": "118fe37a-03ac-4c21-b5d7-785dbf606757"
+  }
 }
