@@ -13,5 +13,7 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
     {
         
     }
+
+    public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 }
 
