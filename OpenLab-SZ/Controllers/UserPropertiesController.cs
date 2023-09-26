@@ -1,40 +1,28 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OpenLab_SZ.Data;
+using OpenLab_SZ.Models;
 
 namespace OpenLab_SZ.Controllers;
 
-[Route("api/users")]
 [ApiController]
-public class UserController : ControllerBase
+[Route("[controller]")]
+public class UserPropertiesController : ControllerBase
 {
-    private readonly ApplicationDbContext _context;
 
-    public UserController(ApplicationDbContext context)
+    private readonly ILogger<UserPropertiesController> _logger;
+
+    public UserPropertiesController(ILogger<UserPropertiesController> logger)
     {
-        _context = context;
+        _logger = logger;
     }
 
-    [HttpGet("{id}/xp-guild")]
-    public async Task<IActionResult> GetUserXpAndGuild(int id)
+
+    // dorobit http request
+    [HttpGet]
+    public IEnumerable<UserDto> Get()
     {
-        try
-        {
-            var user = await _context.Users
-                .Where(u => u.Id == u.Id)
-                .Select(u => new { Xp = u.Xp, Guild = u.Guild })
-                .FirstOrDefaultAsync();
-
-            if (user == null)
-            {
-                return NotFound(); // Užívateľ neexistuje
-            }
-
-            return Ok(user); // Vráti XP a Guild užívateľa
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, $"Internal server error: {ex}");
-        }
+        yield return new UserDto { Guild = "menoguildy", Xp = 54 };
     }
 }
