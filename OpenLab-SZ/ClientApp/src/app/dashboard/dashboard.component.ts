@@ -13,7 +13,7 @@ export class DashboardComponent {
 
   name: string = "Pavol";
   guild: string = "";
-  xp: number = 0;
+  xp: number = 10;
   requiredXp: number = 120;
   progress: number = 0;
 
