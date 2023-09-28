@@ -15,5 +15,6 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
     }
 
     public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+    public DbSet<Guild> Guilds { get; set; }
 }
 
