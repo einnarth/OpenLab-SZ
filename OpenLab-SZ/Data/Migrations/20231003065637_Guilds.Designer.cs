@@ -11,8 +11,8 @@ using OpenLab_SZ.Data;
 namespace OpenLab_SZ.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230928064032_GuildMigration")]
-    partial class GuildMigration
+    [Migration("20231003065637_Guilds")]
+    partial class Guilds
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
