@@ -1,9 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 25.0.1706.4
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenLab-SZ", "OpenLab-SZ\OpenLab-SZ.csproj", "{BCD281D8-06A6-4D73-90B2-9B79C489F0B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenLab-SZ", "OpenLab-SZ\OpenLab-SZ.csproj", "{BCD281D8-06A6-4D73-90B2-9B79C489F0B0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{398E678C-881D-43B7-8907-45EBDC55E327}"
+	ProjectSection(SolutionItems) = preProject
+		GuildDto.cs = GuildDto.cs
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

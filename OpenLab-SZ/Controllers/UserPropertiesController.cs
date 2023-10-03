@@ -22,17 +22,10 @@ public class UserPropertiesController : ControllerBase
     }
 
 
-    // dorobit http request
-
-    /*public async Task<ActionResult<IEnumerable<UserDto>>> GetMyEntities()
-    {
-        var myEntities = await _context.ApplicationUsers.ToListAsync();
-        return myEntities;
-    }*/
+    
     [HttpGet]
     public IEnumerable<ApplicationUser> Get()
     {
-        //yield return new UserDto { Guild = "menoguildy", Xp = 54 };
         var myEntities = _context.ApplicationUsers;
         return myEntities;
     }

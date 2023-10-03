@@ -19,6 +19,7 @@ export class DashboardComponent {
 
 
   public users: UserDto[] = [];
+  public guilds: GuildDto[] = [];
 
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
@@ -28,7 +29,13 @@ export class DashboardComponent {
       this.guild = result[0].guild;
       this.progress = Math.floor(this.xp / this.requiredXp * 100)
     }, error => console.error(error));
+
+    http.get<GuildDto[]>(baseUrl + 'guilds').subscribe(result => {
+      this.guilds = result;
+      this.name = result[0].name;
+    }, error => console.error(error));
   }
+
 
 }
 
@@ -37,4 +44,9 @@ export class DashboardComponent {
 interface UserDto {
   xp: number
   guild: string
+}
+
+interface GuildDto {
+  id: number
+  name: string
 }
