@@ -1,7 +1,15 @@
 <p>You are logged as: {{name}}</p>
-<p>Guild: {{guild}}</p>
+<p *ngIf="selectedGuild">Guild: {{ selectedGuild }}</p>
 
 <p>Current xp: {{xp}}</p>
+
+<select [(ngModel)]="selectedGuild" *ngIf="showSelect" (change)="onGuildSelect(selectedGuild)">
+  <option *ngFor="let guild of guilds" [value]="guild.name">
+    {{guild.name}}
+  </option>
+</select>
+
+
 
 <div class="progress" style="height: 40px; width: 50%;">
   <div class="progress-bar" role="progressbar" style="width: {{progress}}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{progress}}%</div>

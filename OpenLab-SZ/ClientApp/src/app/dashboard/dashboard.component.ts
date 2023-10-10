@@ -15,6 +15,8 @@ export class DashboardComponent {
 
   public users: UserDto[] = [];
   public guilds: GuildDto[] = [];
+  selectedGuild: string = "Nie si v žiadnej guilde";
+  showSelect: boolean = true;
 
   showPopup = false; // Príznak pre zobrazenie/skrytie vyskakovacieho okna
 
@@ -30,6 +32,11 @@ export class DashboardComponent {
       this.guilds = result;
       this.name = result[0].name;
     }, error => console.error(error));
+  }
+
+  onGuildSelect(guild: string) {
+    this.selectedGuild = guild;
+    this.showSelect = false;
   }
 
   // Metóda na zobrazenie vyskakovacieho okna
