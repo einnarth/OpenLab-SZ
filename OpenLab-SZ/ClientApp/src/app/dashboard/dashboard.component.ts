@@ -20,14 +20,14 @@ export class DashboardComponent {
 
   showPopup = false; // Príznak pre zobrazenie/skrytie vyskakovacieho okna
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<UserDto[]>(baseUrl + 'userproperties').subscribe(result => {
-      this.users = result;
-      this.xp = result[0].xp;
-      this.name = result[0].userName
-      this.guild = result[0].guild;
-      this.progress = Math.floor(this.xp / this.requiredXp * 100);
-    }, error => console.error(error));
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string)
+  {http.get<UserDto>(baseUrl + 'userproperties').subscribe(result => {
+    this.name = result.userName; // Predpokladajme, že máte premennú this.user definovanú na strane komponentu
+    this.xp = result.xp;
+    this.guild = result.guild;
+    this.progress = Math.floor(this.xp / this.requiredXp * 100);
+  }, error => console.error(error));
+
 
     http.get<GuildDto[]>(baseUrl + 'guilds').subscribe(result => {
       this.guilds = result;
