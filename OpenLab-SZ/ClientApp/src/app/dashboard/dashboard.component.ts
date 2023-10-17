@@ -24,13 +24,13 @@ export class DashboardComponent {
     http.get<UserDto[]>(baseUrl + 'userproperties').subscribe(result => {
       this.users = result;
       this.xp = result[0].xp;
+      this.name = result[0].userName
       this.guild = result[0].guild;
       this.progress = Math.floor(this.xp / this.requiredXp * 100);
     }, error => console.error(error));
 
     http.get<GuildDto[]>(baseUrl + 'guilds').subscribe(result => {
       this.guilds = result;
-      this.name = result[0].name;
     }, error => console.error(error));
   }
 
@@ -52,6 +52,7 @@ export class DashboardComponent {
 
 interface UserDto {
   xp: number;
+  userName: string;
   guild: string;
 }
 
