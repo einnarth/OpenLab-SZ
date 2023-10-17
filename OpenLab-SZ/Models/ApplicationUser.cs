@@ -6,6 +6,7 @@ public class ApplicationUser : IdentityUser
 {
     public string? Guild {  get; set; }
     public int Xp {  get; set; }
+    public Guild? UsersGuild { get; set; }
     
 }
 

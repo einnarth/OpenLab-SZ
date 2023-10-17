@@ -37,6 +37,33 @@ namespace OpenLab_SZ.Data.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[] { "3", "Guild 3" });
 
+            migrationBuilder.AddColumn<string>(
+                name: "Description",
+                table: "Guilds",
+                type: "TEXT",
+                nullable: false,
+                defaultValue: "");
+
+            migrationBuilder.AddColumn<int>(
+                name: "UsersGuildId",
+                table: "AspNetUsers",
+                type: "INTEGER",
+                nullable: false,
+                defaultValue: 0);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_UsersGuildId",
+                table: "AspNetUsers",
+                column: "UsersGuildId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_AspNetUsers_Guilds_UsersGuildId",
+                table: "AspNetUsers",
+                column: "UsersGuildId",
+                principalTable: "Guilds",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
 
         }
 
