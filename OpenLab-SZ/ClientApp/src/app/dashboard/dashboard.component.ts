@@ -12,6 +12,7 @@ export class DashboardComponent {
   xp: number = 10;
   requiredXp: number = 120;
   progress: number = 0;
+  nothing: string = "";
 
   public users: UserDto[] = [];
   public guilds: GuildDto[] = [];
@@ -25,6 +26,9 @@ export class DashboardComponent {
     this.name = result.userName; // Predpokladajme, že máte premennú this.user definovanú na strane komponentu
     this.xp = result.xp;
     this.guild = result.guild;
+    if (this.guild == this.nothing) {
+      this.guild == "nie si v žiadnej guilde";
+    }
     this.progress = Math.floor(this.xp / this.requiredXp * 100);
   }, error => console.error(error));
 
