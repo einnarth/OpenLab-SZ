@@ -37,6 +37,11 @@ namespace OpenLab_SZ.Data.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[] { "3", "Guild 3" });
 
+            migrationBuilder.InsertData(
+                table: "Guilds",
+                columns: new[] { "Id", "Name", "Description" },
+                values: new object[] { "4", "BestGuild", "Najlepšia guilda zo všetkých"});
+
             migrationBuilder.AddColumn<string>(
                 name: "Description",
                 table: "Guilds",

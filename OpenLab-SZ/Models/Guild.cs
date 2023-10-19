@@ -10,5 +10,6 @@ namespace OpenLab_SZ.Models
         public required string Name { get; set; }
         public string Description { get; set; }
         public ICollection<ApplicationUser> Users { get; set; }
+        public int MembersCount { get; set; }
     }
 }

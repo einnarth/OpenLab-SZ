@@ -34,6 +34,7 @@ public class UserPropertiesController : ControllerBase
         {
             Xp = currentUser.Xp,
             UserName = currentUser.UserName,
+            Guild = currentUser.UsersGuild?.Name,
         };
         return info;
     }
@@ -43,6 +44,7 @@ public class UserPropertiesController : ControllerBase
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         Models.ApplicationUser? user = _context.ApplicationUsers
+            .Include(user => user.UsersGuild)
             .SingleOrDefault(user => user.Id == userId);
 
         return user!;
