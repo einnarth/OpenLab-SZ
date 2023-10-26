@@ -36,7 +36,9 @@ export class DashboardComponent {
     http.get<GuildDto[]>(baseUrl + 'guilds').subscribe(result => {
       this.guilds = result;
     }, error => console.error(error));
-  }
+
+
+}
 
   onGuildSelect(guild: string) {
     this.selectedGuild = guild;

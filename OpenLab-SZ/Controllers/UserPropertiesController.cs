@@ -6,6 +6,7 @@ using OpenLab_SZ.Models;
 using OpenLab_SZ.Data.Migrations;
 using System.Security.Claims;
 using System.Xml.XPath;
+using Microsoft.AspNetCore.Identity;
 
 namespace OpenLab_SZ.Controllers;
 
@@ -16,11 +17,13 @@ public class UserPropertiesController : ControllerBase
 
     private readonly ILogger<UserPropertiesController> _logger;
     private readonly ApplicationDbContext _context;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public UserPropertiesController(ILogger<UserPropertiesController> logger, ApplicationDbContext context)
+    public UserPropertiesController(ILogger<UserPropertiesController> logger, ApplicationDbContext context, UserManager<ApplicationUser> userManager)
     {
         _logger = logger;
         _context = context;
+        _userManager = userManager;
     }
 
 
@@ -37,6 +40,25 @@ public class UserPropertiesController : ControllerBase
             Guild = currentUser.UsersGuild?.Name,
         };
         return info;
+    }
+    [HttpPut("{userId}")]
+    public async Task<IActionResult> RemoveGuildAssociation(string userId)
+    {
+        var user = GetCurrentUser();
+
+
+        user.UsersGuild = null; // Nastavte guild ID na null (alebo inú vhodnú hodnotu podľa vašich dátových modelov)
+
+        var result = await _userManager.UpdateAsync(user);
+
+        if (result.Succeeded)
+        {
+            return NoContent();
+        }
+        else
+        {
+            return BadRequest(result.Errors);
+        }
     }
     
 
