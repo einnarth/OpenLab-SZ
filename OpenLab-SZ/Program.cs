@@ -44,6 +44,7 @@ else
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UsePathBase("/api");
 app.UseRouting();
 
 app.UseAuthentication();
