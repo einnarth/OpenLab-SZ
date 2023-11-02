@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-guilds',
@@ -7,4 +8,18 @@ import { Component } from '@angular/core';
 })
 export class GuildsComponent {
 
+  public guilds: GuildDto[] = [];
+
+
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+    http.get<GuildDto[]>(baseUrl + 'guilds').subscribe(result => {
+      this.guilds = result;
+    }, error => console.error(error));
+  }
+
+}
+
+interface GuildDto {
+  id: number;
+  name: string;
 }
