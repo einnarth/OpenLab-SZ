@@ -26,6 +26,7 @@ public class UserPropertiesController : ControllerBase
 
     
     [HttpGet]
+    [Route("getCurrent")]
     public ActionResult<ApplicationUser> Get()
     {
         var currentUser = GetCurrentUser();
@@ -38,6 +39,9 @@ public class UserPropertiesController : ControllerBase
         };
         return info;
     }
+
+    [HttpGet]
+    [Route("getNumberOfUsers")]
     
 
     private Models.ApplicationUser GetCurrentUser() 

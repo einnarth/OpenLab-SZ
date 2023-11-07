@@ -12,7 +12,7 @@ export class GuildsComponent {
 
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<GuildDto[]>(baseUrl + 'guilds').subscribe(result => {
+    http.get<GuildDto[]>(baseUrl + 'guilds/getGuilds').subscribe(result => {
       this.guilds = result;
     }, error => console.error(error));
   }
@@ -22,4 +22,6 @@ export class GuildsComponent {
 interface GuildDto {
   id: number;
   name: string;
+  description: string;
+  membersCount: number;
 }

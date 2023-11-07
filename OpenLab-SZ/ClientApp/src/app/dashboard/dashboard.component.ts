@@ -23,7 +23,7 @@ export class DashboardComponent {
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string)
   {
-    http.get<UserDto>(baseUrl + 'userproperties').subscribe(result => {
+    http.get<UserDto>(baseUrl + 'userproperties/getCurrent').subscribe(result => {
     this.name = result.userName; // Predpokladajme, že máte premennú this.user definovanú na strane komponentu
     this.xp = result.xp;
     this.guild = result.guild;
@@ -34,7 +34,7 @@ export class DashboardComponent {
   }, error => console.error(error));
 
 
-    http.get<GuildDto[]>(baseUrl + 'guilds').subscribe(result => {
+    http.get<GuildDto[]>(baseUrl + 'guilds/getGuilds').subscribe(result => {
       this.guilds = result;
     }, error => console.error(error));
   }
