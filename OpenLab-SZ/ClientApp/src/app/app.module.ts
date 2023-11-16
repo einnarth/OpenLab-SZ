@@ -14,6 +14,7 @@ import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {GuildsComponent} from "./guilds/guilds.component";
+import {GDetailsComponent} from "./gdetails/gdetails.component";
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {GuildsComponent} from "./guilds/guilds.component";
     FetchDataComponent,
     DashboardComponent,
     GuildsComponent,
+    GDetailsComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -35,7 +37,9 @@ import {GuildsComponent} from "./guilds/guilds.component";
       { path: 'counter', component: CounterComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
-      { path: 'guilds', component: GuildsComponent, canActivate: [AuthorizeGuard]}
+      { path: 'guilds', component: GuildsComponent, canActivate: [AuthorizeGuard]},
+      { path: '', component: GDetailsComponent, canActivate: [AuthorizeGuard] },
+      { path: 'guilds/:guildId', component: GDetailsComponent },
     ])
   ],
   providers: [
