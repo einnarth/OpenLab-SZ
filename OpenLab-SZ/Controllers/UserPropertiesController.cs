@@ -27,7 +27,7 @@ public class UserPropertiesController : ControllerBase
     }
 
 
-    
+
     [HttpGet]
     [Route("getCurrent")]
     public ActionResult<ApplicationUser> Get()
@@ -42,10 +42,10 @@ public class UserPropertiesController : ControllerBase
         };
         return info;
     }
-    
-    
 
-    private Models.ApplicationUser GetCurrentUser() 
+
+
+    private Models.ApplicationUser GetCurrentUser()
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         Models.ApplicationUser? user = _context.ApplicationUsers
@@ -53,5 +53,16 @@ public class UserPropertiesController : ControllerBase
             .SingleOrDefault(user => user.Id == userId);
 
         return user!;
+    }
+
+    [HttpPut]
+    [Route("leaveGuild")]
+    public async Task<IActionResult>LeaveGuild()
+    {
+        var currentUser = GetCurrentUser();
+        currentUser.UsersGuild = null;
+        await _context.SaveChangesAsync();
+
+        return NoContent();
     }
 }

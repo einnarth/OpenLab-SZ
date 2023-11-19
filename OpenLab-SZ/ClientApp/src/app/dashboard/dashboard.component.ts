@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -6,7 +6,15 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
+
+  @Injectable({
+    providedIn: 'root'
+  })
+
 export class DashboardComponent {
+  http: HttpClient;
+  baseUrl: string;
+
   name: string = "Pavol";
   guild: string = "";
   xp: number = 10;
@@ -23,6 +31,9 @@ export class DashboardComponent {
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string)
   {
+    this.baseUrl = baseUrl;
+    this.http = http;
+
     http.get<UserDto>(baseUrl + 'userproperties/getCurrent').subscribe(result => {
     this.name = result.userName; // Predpokladajme, že máte premennú this.user definovanú na strane komponentu
     this.xp = result.xp;
@@ -54,6 +65,14 @@ export class DashboardComponent {
   // Metóda na skrytie vyskakovacieho okna
   hidePopupWindow() {
     this.showPopup = false;
+  }
+
+  //Metóda na vystúpenie z guildy
+  leaveGuild() {
+    this.showPopup = false;
+    // http request
+    this.http.put<any>(this.baseUrl + 'userproperties/leaveGuild', {})
+      .subscribe();
   }
 }
 

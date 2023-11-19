@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -6,9 +6,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DataService {
-  constructor(private http: HttpClient) { }
+  public baseUrl: string;
+  constructor(private http: HttpClient,  @Inject('BASE_URL') baseUrl: string) {
+    this.baseUrl = baseUrl;
+  }
 
-  fetchData(): Observable<any> {
-    return this.http.get('{id}/xp-guild'); // Replace with your API endpoint
+  public leaveGuild(): Observable<any> {
+    return this.http.put<any>(this.baseUrl + 'userproperties/leaveGuild', {});
   }
 }
