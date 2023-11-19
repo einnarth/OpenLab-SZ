@@ -37,11 +37,37 @@ public class GuildsController : ControllerBase
         });
     }
 
+    [HttpGet]
+    [Route("getGuildById")]
+    public GuildDto GetGuildById(int id)
+    {
+        Guild guild = _context.Guilds
+            .Where(g => g.Id == id).FirstOrDefault();
+        var info = new GuildDto
+        {
+            Id = guild.Id,
+            Name = guild.Name,
+            Description = guild.Description,
+            MembersCount = guild.MembersCount,
+            CurrentMembersCount = GetUsersCount(guild.Id)
+        };
+        return info;
+    }
+
+
+    //Other methods
     private int GetUsersCount(int guildId)
     {
         IQueryable<ApplicationUser> users = _context.Users.Include(user => user.UsersGuild).AsNoTracking();
 
         return users.Where(u => u.UsersGuild.Id == guildId).Count();
+    }
+
+    private IEnumerable<ApplicationUser> GetUsersInGuild(int guildId)
+    {
+        IQueryable<ApplicationUser> users = _context.Users.Include(user => user.UsersGuild).AsNoTracking();
+
+        return users.Where(u => u.UsersGuild.Id == guildId);
     }
 
 

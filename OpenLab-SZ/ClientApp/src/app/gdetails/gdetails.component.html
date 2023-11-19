@@ -1,2 +1,13 @@
-<p>GUildD works</p>
+<h1>{{guildName}} details page</h1>
+<br />
+<h3>Description:</h3>
+<p>{{guildDescription}}</p>
+<p></p>
+
+<h2>Our members({{guildCurrentMemberCount}}/{{guildMemberCount}}): </h2>
+<ol>
+  <li *ngFor="let user of guildUsers">
+    {{user.userName}}
+  </li>
+</ol>
 

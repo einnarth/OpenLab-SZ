@@ -73,6 +73,7 @@ export class DashboardComponent {
     // http request
     this.http.put<any>(this.baseUrl + 'userproperties/leaveGuild', {})
       .subscribe();
+      this.guild = "Haha nemáš guildu"
   }
 }
 

@@ -65,4 +65,22 @@ public class UserPropertiesController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpGet]
+    [Route("getUsersInGuild")]
+    public IEnumerable<UserDto> GetGuildById(int id)
+    {
+        IQueryable<ApplicationUser> users = _context.Users.Include(user => user.UsersGuild);
+
+        IEnumerable<ApplicationUser> finalUsers = users.Where(u => u.UsersGuild.Id == id);
+
+        return finalUsers.Select(finalUsers => new UserDto
+        {
+            Guild = finalUsers.Guild,
+            UserName = finalUsers.UserName,
+            Xp = finalUsers.Xp,
+            
+        });
+
+    }
 }
