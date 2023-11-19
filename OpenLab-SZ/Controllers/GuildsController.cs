@@ -23,10 +23,25 @@ public class GuildsController : ControllerBase
     }
 
     [HttpGet]
-    public IEnumerable<Guild> Get()
+    [Route("getGuilds")]
+    public IEnumerable<GuildDto> Get()
     {
-        var myEntities = _context.Guilds;
-        return myEntities;
+        IEnumerable<Guild> myEntities = _context.Guilds;
+        return myEntities.Select(myEntities => new GuildDto
+        {
+            Id = myEntities.Id,
+            Name = myEntities.Name,
+            Description = myEntities.Description,
+            MembersCount = myEntities.MembersCount,
+            CurrentMembersCount = GetUsersCount(myEntities.Id)
+        });
+    }
+
+    private int GetUsersCount(int guildId)
+    {
+        IQueryable<ApplicationUser> users = _context.Users.Include(user => user.UsersGuild).AsNoTracking();
+
+        return users.Where(u => u.UsersGuild.Id == guildId).Count();
     }
 
 

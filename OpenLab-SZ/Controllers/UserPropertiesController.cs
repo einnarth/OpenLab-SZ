@@ -29,6 +29,7 @@ public class UserPropertiesController : ControllerBase
 
     
     [HttpGet]
+    [Route("getCurrent")]
     public ActionResult<ApplicationUser> Get()
     {
         var currentUser = GetCurrentUser();
@@ -41,25 +42,7 @@ public class UserPropertiesController : ControllerBase
         };
         return info;
     }
-    [HttpPut("{userId}")]
-    public async Task<IActionResult> RemoveGuildAssociation(string userId)
-    {
-        var user = GetCurrentUser();
-
-
-        user.UsersGuild = null; // Nastavte guild ID na null (alebo inú vhodnú hodnotu podľa vašich dátových modelov)
-
-        var result = await _userManager.UpdateAsync(user);
-
-        if (result.Succeeded)
-        {
-            return NoContent();
-        }
-        else
-        {
-            return BadRequest(result.Errors);
-        }
-    }
+    
     
 
     private Models.ApplicationUser GetCurrentUser() 

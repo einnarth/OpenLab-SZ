@@ -24,4 +24,5 @@ interface GuildDto {
   name: string;
   description: string;
   membersCount: number;
+  currentMembersCount: number;
 }
