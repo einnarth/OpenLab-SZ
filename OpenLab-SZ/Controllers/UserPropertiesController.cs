@@ -71,7 +71,7 @@ public class UserPropertiesController : ControllerBase
     public async Task<IActionResult> joinGuild(int id)
     {
         var currentUser = GetCurrentUser();
-        IEnumerable<Guild> newGuild = _context.Guilds;
+        IEnumerable<Guild> newGuild = _context.Guilds.Where(x => x.Id == id);
         currentUser.UsersGuild = newGuild.FirstOrDefault();
         await _context.SaveChangesAsync();
 

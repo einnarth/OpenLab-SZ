@@ -56,7 +56,7 @@ export class GDetailsComponent {
     //http request to join guild
     let queryParams = new HttpParams();
     queryParams = queryParams.append("id", this.guildIdFromRoute);
-    this.http.put<any>(this.baseUrl + 'userproperties/joinGuild', { params: queryParams })
+    this.http.put<any>(this.baseUrl + 'userproperties/joinGuild',null, { params: queryParams })
       .subscribe();
 
     location.reload();

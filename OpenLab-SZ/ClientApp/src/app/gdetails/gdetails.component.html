@@ -5,13 +5,15 @@
 <p></p>
 <br />
 
-<button type="button" class="btn btn-primary" (click)="joinGuild()">Primary</button>
+<div class="flex-container">
 
-<br />
-<h2>Our members({{guildCurrentMemberCount}}/{{guildMemberCount}}): </h2>
-<ol>
-  <li *ngFor="let user of guildUsers">
-    {{user.userName}}
-  </li>
-</ol>
-
+  <div>
+    <h2>Our members({{guildCurrentMemberCount}}/{{guildMemberCount}}): </h2>
+    <ol>
+      <li *ngFor="let user of guildUsers">
+        {{user.userName}}
+      </li>
+    </ol>
+  </div>
+  <button type="button" class="btn btn-primary join-btn" (click)="joinGuild()">Join us!</button>
+</div>
