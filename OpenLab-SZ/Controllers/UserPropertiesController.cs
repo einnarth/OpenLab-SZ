@@ -66,6 +66,18 @@ public class UserPropertiesController : ControllerBase
         return NoContent();
     }
 
+    [HttpPut]
+    [Route("joinGuild")]
+    public async Task<IActionResult> joinGuild(int id)
+    {
+        var currentUser = GetCurrentUser();
+        IEnumerable<Guild> newGuild = _context.Guilds;
+        currentUser.UsersGuild = newGuild.FirstOrDefault();
+        await _context.SaveChangesAsync();
+
+        return NoContent();
+    }
+
     [HttpGet]
     [Route("getUsersInGuild")]
     public IEnumerable<UserDto> GetGuildById(int id)

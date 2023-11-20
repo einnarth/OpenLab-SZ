@@ -3,7 +3,11 @@
 <h3>Description:</h3>
 <p>{{guildDescription}}</p>
 <p></p>
+<br />
 
+<button type="button" class="btn btn-primary" (click)="joinGuild()">Primary</button>
+
+<br />
 <h2>Our members({{guildCurrentMemberCount}}/{{guildMemberCount}}): </h2>
 <ol>
   <li *ngFor="let user of guildUsers">

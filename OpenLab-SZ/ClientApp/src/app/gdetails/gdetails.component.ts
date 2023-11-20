@@ -13,8 +13,9 @@ import { HttpParams } from "@angular/common/http";
 export class GDetailsComponent {
   http: HttpClient;
   baseUrl: string;
+  queryParams = new HttpParams();
 
-  guildIdFromRoute: number = 0;
+  guildIdFromRoute: number = 2;
 
   guildName: string = "";
   guildDescription: string = "";
@@ -32,11 +33,11 @@ export class GDetailsComponent {
     const routeParams = this.route.snapshot.paramMap;
     this.guildIdFromRoute = Number(routeParams.get('guildId'));
 
-    let queryParams = new HttpParams();
-    queryParams = queryParams.append("id", this.guildIdFromRoute);
+    //let queryParams = new HttpParams();
+    this.queryParams = this.queryParams.append("id", this.guildIdFromRoute);
 
     //http request to get info about guild on this page
-    this.http.get<GuildDto>(this.baseUrl + 'guilds/getGuildById', { params: queryParams }).subscribe(result => {
+    this.http.get<GuildDto>(this.baseUrl + 'guilds/getGuildById', { params: this.queryParams }).subscribe(result => {
       this.guildName = result.name;
       this.guildDescription = result.description;
       this.guildCurrentMemberCount = result.currentMembersCount;
@@ -44,9 +45,21 @@ export class GDetailsComponent {
     }, error => console.error(error));
 
     //http request to get list of users in this guild
-    this.http.get<UserDto[]>(this.baseUrl + 'userproperties/getUsersInGuild', { params: queryParams }).subscribe(result => {
+    this.http.get<UserDto[]>(this.baseUrl + 'userproperties/getUsersInGuild', { params: this.queryParams }).subscribe(result => {
       this.guildUsers = result;
     }, error => console.error(error));
+
+    
+  }
+
+  joinGuild() {
+    //http request to join guild
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("id", this.guildIdFromRoute);
+    this.http.put<any>(this.baseUrl + 'userproperties/joinGuild', { params: queryParams })
+      .subscribe();
+
+    location.reload();
   }
 
 }
