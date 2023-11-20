@@ -22,6 +22,8 @@ export class GDetailsComponent {
   guildMemberCount: number = 0;
   guildCurrentMemberCount: number = 0;
 
+  hasGuild: boolean = false;
+
   public guildUsers: UserDto[] = [];
   constructor(private route: ActivatedRoute, http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.baseUrl = baseUrl;
@@ -49,6 +51,10 @@ export class GDetailsComponent {
       this.guildUsers = result;
     }, error => console.error(error));
 
+    //http request to find out if user is in this guild
+    this.http.get<boolean>(this.baseUrl + 'userproperties/hasThisGuild', { params: this.queryParams }).subscribe(result => {
+      this.hasGuild = result;
+    }, error => console.error(error));
     
   }
 
@@ -57,6 +63,17 @@ export class GDetailsComponent {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("id", this.guildIdFromRoute);
     this.http.put<any>(this.baseUrl + 'userproperties/joinGuild',null, { params: queryParams })
+      .subscribe(result => {
+
+      });
+
+    location.reload();
+  }
+
+  //Metóda na vystúpenie z guildy
+  leaveGuild() {
+    // http request
+    this.http.put<any>(this.baseUrl + 'userproperties/leaveGuild', {})
       .subscribe();
 
     location.reload();

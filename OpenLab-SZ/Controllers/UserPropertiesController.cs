@@ -95,4 +95,14 @@ public class UserPropertiesController : ControllerBase
         });
 
     }
+
+    [HttpGet]
+    [Route("hasThisGuild")]
+    public bool HasThisGuild(int id)
+    {
+        Guild currentGuild = _context.Guilds.Where(x => x.Id == id).FirstOrDefault();
+        var currentUser = GetCurrentUser();
+        return currentUser.UsersGuild == currentGuild;
+
+    }
 }

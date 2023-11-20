@@ -15,5 +15,8 @@
       </li>
     </ol>
   </div>
-  <button type="button" class="btn btn-primary join-btn" (click)="joinGuild()">Join us!</button>
+  <button type="button" class="btn btn-primary join-btn" (click)="joinGuild()" *ngIf="hasGuild == false">Join us!</button>
+  <button type="button" class="btn btn-danger join-btn" (click)="leaveGuild()" *ngIf="hasGuild == true">Leave :((</button>
+
 </div>
+
