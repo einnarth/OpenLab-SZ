@@ -31,7 +31,7 @@ export class GuildService {
 
     return this.http.get<boolean>(this.baseUrl + 'userproperties/hasThisGuild', { params: queryParams })
   }
-  //http request to join guild
+  //http put to join guild
   joinGuild(id: number) {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("id", id);
@@ -39,8 +39,14 @@ export class GuildService {
    return this.http.put<any>(this.baseUrl + 'userproperties/joinGuild', null, { params: queryParams })
   }
 
+  //http put to leave guild
   leaveGuild() {
     this.http.put<any>(this.baseUrl + 'userproperties/leaveGuild', {}).subscribe()
+  }
+
+  //http get to get all guilds
+  getAllGuilds() {
+    return this.http.get<GuildDto[]>(this.baseUrl + 'guilds/getGuilds')
   }
 
 
