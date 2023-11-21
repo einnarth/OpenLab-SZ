@@ -1,7 +1,5 @@
-import { Component, OnInit, Inject, Injectable } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { HttpParams } from "@angular/common/http";
 import { GuildService } from '../Service/guild.service';
 
 
@@ -12,11 +10,8 @@ import { GuildService } from '../Service/guild.service';
   styleUrls: ['./gdetails.component.css']
 })
 export class GDetailsComponent {
-  http: HttpClient;
-  baseUrl: string;
-  queryParams = new HttpParams();
 
-  guildIdFromRoute: number = 2;
+  guildIdFromRoute: number = 0;
 
   guildName: string = "";
   guildDescription: string = "";
@@ -26,17 +21,12 @@ export class GDetailsComponent {
   hasGuild: boolean = false;
 
   public guildUsers: UserDto[] = [];
-  constructor(private route: ActivatedRoute, http: HttpClient, @Inject('BASE_URL') baseUrl: string, private guildService: GuildService) {
-    this.baseUrl = baseUrl;
-    this.http = http;
-  }
+  constructor(private route: ActivatedRoute, private guildService: GuildService) { }
 
   ngOnInit() {
     // Get guild Id
     const routeParams = this.route.snapshot.paramMap;
     this.guildIdFromRoute = Number(routeParams.get('guildId'));
-
-   
 
     //method to get info about guild on this page
     this.guildService.getInfoAboutCertainGuild(this.guildIdFromRoute).subscribe(result => {
@@ -77,14 +67,6 @@ export class GDetailsComponent {
     location.reload();
   }
 
-}
-
-interface GuildDto {
-  id: number;
-  name: string;
-  description: string;
-  membersCount: number;
-  currentMembersCount: number;
 }
 
 interface UserDto {
