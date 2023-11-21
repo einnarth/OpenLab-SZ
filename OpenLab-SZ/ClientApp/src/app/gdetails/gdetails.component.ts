@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { HttpParams } from "@angular/common/http";
+import { GuildService } from '../Service/guild.service';
 
 
 
@@ -25,7 +26,7 @@ export class GDetailsComponent {
   hasGuild: boolean = false;
 
   public guildUsers: UserDto[] = [];
-  constructor(private route: ActivatedRoute, http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(private route: ActivatedRoute, http: HttpClient, @Inject('BASE_URL') baseUrl: string, private guildService: GuildService) {
     this.baseUrl = baseUrl;
     this.http = http;
   }
@@ -35,46 +36,43 @@ export class GDetailsComponent {
     const routeParams = this.route.snapshot.paramMap;
     this.guildIdFromRoute = Number(routeParams.get('guildId'));
 
-    //let queryParams = new HttpParams();
-    this.queryParams = this.queryParams.append("id", this.guildIdFromRoute);
+   
 
-    //http request to get info about guild on this page
-    this.http.get<GuildDto>(this.baseUrl + 'guilds/getGuildById', { params: this.queryParams }).subscribe(result => {
-      this.guildName = result.name;
-      this.guildDescription = result.description;
-      this.guildCurrentMemberCount = result.currentMembersCount;
-      this.guildMemberCount = result.membersCount;
+    //method to get info about guild on this page
+    this.guildService.getInfoAboutCertainGuild(this.guildIdFromRoute).subscribe(result => {
+    this.guildName = result.name;
+    this.guildDescription = result.description;
+    this.guildCurrentMemberCount = result.currentMembersCount;
+    this.guildMemberCount = result.membersCount;
     }, error => console.error(error));
 
-    //http request to get list of users in this guild
-    this.http.get<UserDto[]>(this.baseUrl + 'userproperties/getUsersInGuild', { params: this.queryParams }).subscribe(result => {
+    
+    
+
+    //method to get list of users in this guild
+    this.guildService.getUsersInCertainGuild(this.guildIdFromRoute).subscribe(result => {
       this.guildUsers = result;
     }, error => console.error(error));
 
-    //http request to find out if user is in this guild
-    this.http.get<boolean>(this.baseUrl + 'userproperties/hasThisGuild', { params: this.queryParams }).subscribe(result => {
+
+    //method to find out if user is in this guild
+    this.guildService.isInCertainGuild(this.guildIdFromRoute).subscribe(result => {
       this.hasGuild = result;
     }, error => console.error(error));
     
   }
 
-  joinGuild() {
-    //http request to join guild
-    let queryParams = new HttpParams();
-    queryParams = queryParams.append("id", this.guildIdFromRoute);
-    this.http.put<any>(this.baseUrl + 'userproperties/joinGuild',null, { params: queryParams })
-      .subscribe(result => {
-
-      });
+  onJoinGuild() {
+  // method for joining guild
+    this.guildService.joinGuild(this.guildIdFromRoute).subscribe(result => {
+    });
 
     location.reload();
   }
 
-  //Metóda na vystúpenie z guildy
-  leaveGuild() {
-    // http request
-    this.http.put<any>(this.baseUrl + 'userproperties/leaveGuild', {})
-      .subscribe();
+  onLeaveGuild() {
+    // http request to leave guild
+    this.guildService.leaveGuild();
 
     location.reload();
   }
