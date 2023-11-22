@@ -1,6 +1,7 @@
 <!-- Main view -->
 <div *ngIf="isForm == false" >
   <p>You are logged as: {{name}}</p>
+  <p>Email: {{email}}</p>
   <p *ngIf="selectedGuild">Guild: {{ guild }}</p>
 
   <p>Current xp: {{xp}}</p>
@@ -22,16 +23,12 @@
 <div *ngIf="isForm">
   <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
+      <label for="exampleInputPassword1">Meno</label>
+      <input type="text" class="form-control" formControlName="username" id="exampleInputPassword1" placeholder="Zadajte používateľské meno">
+    </div>
+    <div class="form-group">
       <label for="exampleInputEmail1">Email</label>
       <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Zadajte email">
-    </div>
-    <div class="form-group">
-      <label for="exampleInputPassword1">Heslo</label>
-      <input type="password" class="form-control" formControlName="password" id="exampleInputPassword1" placeholder="Heslo">
-    </div>
-    <div class="form-group">
-      <label for="exampleInputPassword1">Heslo znovu</label>
-      <input type="password" class="form-control" formControlName="password2" id="exampleInputPassword1" placeholder="Heslo">
     </div>
     <button type="submit" class="btn btn-primary" style="margin-top: 20px">Uložiť</button>
   </form>

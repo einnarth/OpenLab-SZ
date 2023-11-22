@@ -11,7 +11,7 @@
     <h2>Our members({{guildCurrentMemberCount}}/{{guildMemberCount}}): </h2>
     <ol>
       <li *ngFor="let user of guildUsers">
-        {{user.userName}}
+        {{user.userName}} ({{user.email}})
       </li>
     </ol>
   </div>

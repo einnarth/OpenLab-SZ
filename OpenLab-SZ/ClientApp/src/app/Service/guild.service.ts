@@ -63,5 +63,6 @@ interface GuildDto {
 interface UserDto {
   xp: number;
   userName: string;
+  email: string;
   guild: string;
 }

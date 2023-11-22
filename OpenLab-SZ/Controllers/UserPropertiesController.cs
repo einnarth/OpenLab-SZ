@@ -38,6 +38,7 @@ public class UserPropertiesController : ControllerBase
         {
             Xp = currentUser.Xp,
             UserName = currentUser.UserName,
+            Email = currentUser.Email,
             Guild = currentUser.UsersGuild?.Name,
         };
         return info;
@@ -90,6 +91,7 @@ public class UserPropertiesController : ControllerBase
         {
             Guild = finalUsers.Guild,
             UserName = finalUsers.UserName,
+            Email = finalUsers.Email,
             Xp = finalUsers.Xp,
             
         });

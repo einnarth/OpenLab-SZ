@@ -19,6 +19,7 @@ export class DashboardComponent {
   isForm: boolean = false;
 
   name: string = "Pavol";
+  email: string = "";
   guild: string = "";
   xp: number = 10;
   requiredXp: number = 120;
@@ -34,9 +35,8 @@ export class DashboardComponent {
 
   // update form
   updateForm = this.fb.group({
+    username: ["", Validators.required],
     email: ["", [Validators.required, Validators.email]],
-    password: ["", Validators.required],
-    password2: ["", Validators.required],
   })
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private fb: FormBuilder)
@@ -45,11 +45,12 @@ export class DashboardComponent {
     this.http = http;
 
     http.get<UserDto>(baseUrl + 'userproperties/getCurrent').subscribe(result => {
-    this.name = result.userName; // Predpokladajme, že máte premennú this.user definovanú na strane komponentu
-    this.xp = result.xp;
-    this.guild = result.guild;
-    if (this.guild == this.nothing) {
-      this.guild == "nie si v žiadnej guilde";
+      this.name = result.userName; // Predpokladajme, že máte premennú this.user definovanú na strane komponentu
+      this.email = result.email;
+      this.xp = result.xp;
+      this.guild = result.guild;
+      if (this.guild == this.nothing) {
+        this.guild == "nie si v žiadnej guilde";
     }
     this.progress = Math.floor(this.xp / this.requiredXp * 100);
   }, error => console.error(error));
@@ -102,6 +103,7 @@ export class DashboardComponent {
 interface UserDto {
   xp: number;
   userName: string;
+  email: string;
   guild: string;
 }
 
