@@ -1,5 +1,6 @@
 import { Component, Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,6 +16,8 @@ export class DashboardComponent {
   http: HttpClient;
   baseUrl: string;
 
+  isForm: boolean = false;
+
   name: string = "Pavol";
   guild: string = "";
   xp: number = 10;
@@ -29,7 +32,14 @@ export class DashboardComponent {
 
   showPopup = false; // Príznak pre zobrazenie/skrytie vyskakovacieho okna
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string)
+  // update form
+  updateForm = this.fb.group({
+    email: ["", [Validators.required, Validators.email]],
+    password: ["", Validators.required],
+    password2: ["", Validators.required],
+  })
+
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private fb: FormBuilder)
   {
     this.baseUrl = baseUrl;
     this.http = http;
@@ -74,6 +84,18 @@ export class DashboardComponent {
     this.http.put<any>(this.baseUrl + 'userproperties/leaveGuild', {})
       .subscribe();
       this.guild = "Haha nemáš guildu"
+  }
+
+  openForm() {
+    this.isForm = true;
+  }
+
+  closeForm() {
+    this.isForm = false;
+  }
+
+  onSubmit() {
+    console.log(this.updateForm.value)
   }
 }
 

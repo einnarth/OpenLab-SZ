@@ -1,21 +1,41 @@
-<p>You are logged as: {{name}}</p>
-<p *ngIf="selectedGuild">Guild: {{ guild }}</p>
+<!-- Main view -->
+<div *ngIf="isForm == false" >
+  <p>You are logged as: {{name}}</p>
+  <p *ngIf="selectedGuild">Guild: {{ guild }}</p>
 
-<p>Current xp: {{xp}}</p>
+  <p>Current xp: {{xp}}</p>
 
-<select [(ngModel)]="selectedGuild" *ngIf="showSelect" (change)="onGuildSelect(selectedGuild)">
-  <option *ngFor="let guild of guilds" [value]="guild.name">
-    {{guild.name}}
-  </option>
-</select>
+  <button style="margin-top: 20px; margin-right: 20px" type="button" class="btn btn-primary" (click)="openForm()">Zmeniť údaje</button>
 
 
-<button id="leaveguild" style="margin-top: 20px" type="button" class="btn btn-danger" (click)="showPopupWindow()">Opustiť Guildu</button>
-<div id="popup" [style.display]="showPopup ? 'block' : 'none'" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 1; display: none;">
-  <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border: 1px solid #ccc; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);">
-    <p>Práve ste sa rozhodli opustiť guildu, ste si istý že to chcete spraviť?</p>
-    <button style="   margin: 0px  50px 0px 50px " type="button" class="btn btn-success" id="closePopupButton" (click)="leaveGuild()">Áno</button>
-    <button type="button" class="btn btn-danger" (click)="hidePopupWindow()">Nie</button>
+  <button id="leaveguild" style="margin-top: 20px" type="button" class="btn btn-danger" (click)="showPopupWindow()">Opustiť Guildu</button>
+  <div id="popup" [style.display]="showPopup ? 'block' : 'none'" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 1; display: none;">
+    <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border: 1px solid #ccc; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);">
+      <p>Práve ste sa rozhodli opustiť guildu, ste si istý že to chcete spraviť?</p>
+      <button style="   margin: 0px  50px 0px 50px " type="button" class="btn btn-success" id="closePopupButton" (click)="leaveGuild()">Áno</button>
+      <button type="button" class="btn btn-danger" (click)="hidePopupWindow()">Nie</button>
+    </div>
   </div>
+</div>
+
+<!-- Change informations form -->
+<div *ngIf="isForm">
+  <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="exampleInputEmail1">Email</label>
+      <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Zadajte email">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Heslo</label>
+      <input type="password" class="form-control" formControlName="password" id="exampleInputPassword1" placeholder="Heslo">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Heslo znovu</label>
+      <input type="password" class="form-control" formControlName="password2" id="exampleInputPassword1" placeholder="Heslo">
+    </div>
+    <button type="submit" class="btn btn-primary" style="margin-top: 20px">Uložiť</button>
+  </form>
+
+  <button type="button" class="btn btn-danger" (click)="closeForm()" style="margin-top: 20px">Späť na Dashboard</button>
 </div>
 
