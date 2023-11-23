@@ -49,7 +49,10 @@ export class GuildService {
     return this.http.get<GuildDto[]>(this.baseUrl + 'guilds/getGuilds')
   }
 
-
+  //hhtp get to get if user has guildid
+IsInGuild() {
+    return this.http.get<boolean>(this.baseUrl + 'IsInGuild')
+}
 }
 
 interface GuildDto {

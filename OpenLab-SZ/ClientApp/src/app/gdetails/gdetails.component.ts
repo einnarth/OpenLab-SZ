@@ -19,6 +19,7 @@ export class GDetailsComponent {
   guildCurrentMemberCount: number = 0;
 
   hasGuild: boolean = false;
+  IsInGuild: boolean = true;
 
   public guildUsers: UserDto[] = [];
   constructor(private route: ActivatedRoute, private guildService: GuildService) { }
@@ -28,6 +29,7 @@ export class GDetailsComponent {
     const routeParams = this.route.snapshot.paramMap;
     this.guildIdFromRoute = Number(routeParams.get('guildId'));
 
+
     //method to get info about guild on this page
     this.guildService.getInfoAboutCertainGuild(this.guildIdFromRoute).subscribe(result => {
     this.guildName = result.name;
@@ -36,8 +38,8 @@ export class GDetailsComponent {
     this.guildMemberCount = result.membersCount;
     }, error => console.error(error));
 
-    
-    
+
+
 
     //method to get list of users in this guild
     this.guildService.getUsersInCertainGuild(this.guildIdFromRoute).subscribe(result => {
@@ -49,8 +51,10 @@ export class GDetailsComponent {
     this.guildService.isInCertainGuild(this.guildIdFromRoute).subscribe(result => {
       this.hasGuild = result;
     }, error => console.error(error));
-    
+
+    this.guildService.IsInGuild().subscribe(result => {this.IsInGuild = result;}, error => console.error(error));
   }
+
 
   onJoinGuild() {
   // method for joining guild

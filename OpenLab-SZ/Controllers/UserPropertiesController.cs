@@ -46,7 +46,7 @@ public class UserPropertiesController : ControllerBase
 
 
 
-    private Models.ApplicationUser GetCurrentUser()
+    public Models.ApplicationUser GetCurrentUser()
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         Models.ApplicationUser? user = _context.ApplicationUsers
@@ -96,6 +96,16 @@ public class UserPropertiesController : ControllerBase
             
         });
 
+    }
+
+    [HttpGet]
+    [Route("isInGuild")]
+    public bool IsInGuild(int id)
+
+    {
+
+        var user = GetCurrentUser();
+        return user.UsersGuild is null;
     }
 
     [HttpGet]
