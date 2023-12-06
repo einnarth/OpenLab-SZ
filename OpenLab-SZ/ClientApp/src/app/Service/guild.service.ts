@@ -13,7 +13,7 @@ export class GuildService {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("id", id);
 
-    return this.http.get<GuildDto>(this.baseUrl + 'guilds/getGuildById', { params: queryParams })
+    return this.http.get<GuildDetailsDto>(this.baseUrl + 'guilds/getGuildById', { params: queryParams })
   }
 
   // http get to get all users in certain guild based on id

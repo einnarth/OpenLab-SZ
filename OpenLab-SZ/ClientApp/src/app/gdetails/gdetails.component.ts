@@ -1,4 +1,4 @@
-import { Component, } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GuildService } from '../Service/guild.service';
 
@@ -12,6 +12,8 @@ import { GuildService } from '../Service/guild.service';
 export class GDetailsComponent {
 
   guildIdFromRoute: number = 0;
+
+  guildDetail = signal<GuildDetailsDto>(undefined);
 
   guildName: string = "";
   guildDescription: string = "";
@@ -29,12 +31,8 @@ export class GDetailsComponent {
     this.guildIdFromRoute = Number(routeParams.get('guildId'));
 
     //method to get info about guild on this page
-    this.guildService.getInfoAboutCertainGuild(this.guildIdFromRoute).subscribe(result => {
-    this.guildName = result.name;
-    this.guildDescription = result.description;
-    this.guildCurrentMemberCount = result.currentMembersCount;
-    this.guildMemberCount = result.membersCount;
-    }, error => console.error(error));
+    this.guildService.getInfoAboutCertainGuild(this.guildIdFromRoute).subscribe(result => this.guildDetail.set(result)
+      , error => console.error(error));
 
     
     
@@ -54,10 +52,8 @@ export class GDetailsComponent {
 
   onJoinGuild() {
   // method for joining guild
-    this.guildService.joinGuild(this.guildIdFromRoute).subscribe(result => {
-    });
+    this.guildService.joinGuild(this.guildIdFromRoute).subscribe(result => this.guildDetail.set(result));
 
-    location.reload();
   }
 
   onLeaveGuild() {

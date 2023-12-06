@@ -1,16 +1,16 @@
-<h1>{{guildName}} details page</h1>
+<h1>{{guildDetail().name}} details page</h1>
 <br />
 <h3>Description:</h3>
-<p>{{guildDescription}}</p>
+<p>{{guildDetail().description}}</p>
 <p></p>
 <br />
 
 <div class="flex-container">
 
   <div>
-    <h2>Our members({{guildCurrentMemberCount}}/{{guildMemberCount}}): </h2>
+    <h2>Our members({{guildDetail().currentMemberCount}}/{{guildDetail().memberCount}}): </h2>
     <ol>
-      <li *ngFor="let user of guildUsers">
+      <li *ngFor="let user of guildDetail().users">
         {{user.userName}} ({{user.email}})
       </li>
     </ol>
