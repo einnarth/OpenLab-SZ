@@ -58,13 +58,24 @@ public class UserPropertiesController : ControllerBase
 
     [HttpPut]
     [Route("leaveGuild")]
-    public async Task<IActionResult>LeaveGuild()
+    public async Task<ActionResult>LeaveGuild(int id)
     {
         var currentUser = GetCurrentUser();
+        var currentGuild = _context.Guilds.Find(id);
         currentUser.UsersGuild = null;
-        await _context.SaveChangesAsync();
+        _context.SaveChanges();
 
-        return NoContent();
+        return Ok(new GuildDetailsDto
+        {
+            Id = currentGuild.Id,
+            Name = currentGuild.Name,
+            Description = currentGuild.Description,
+            MembersCount = currentGuild.MembersCount,
+            CurrentMembersCount = GetUsersInGuild(id).Count(),
+            Users = GetUsersInGuild(id)
+        });
+
+        
     }
 
     [HttpPut]
@@ -72,16 +83,24 @@ public class UserPropertiesController : ControllerBase
     public async Task<IActionResult> joinGuild(int id)
     {
         var currentUser = GetCurrentUser();
-        IEnumerable<Guild> newGuild = _context.Guilds.Where(x => x.Id == id);
-        currentUser.UsersGuild = newGuild.FirstOrDefault();
-        await _context.SaveChangesAsync();
+        Guild newGuild = _context.Guilds.Where(g => g.Id == id).FirstOrDefault();
+        currentUser.UsersGuild = newGuild;
+        _context.SaveChanges();
 
-        return NoContent();
+        return Ok(new GuildDetailsDto
+        {
+            Id = newGuild.Id,
+            Name = newGuild.Name,
+            Description = newGuild.Description,
+            MembersCount = newGuild.MembersCount,
+            CurrentMembersCount = GetUsersInGuild(id).Count(),
+            Users = GetUsersInGuild(id)
+        });
     }
 
     [HttpGet]
     [Route("getUsersInGuild")]
-    public IEnumerable<UserDto> GetGuildById(int id)
+    public IEnumerable<UserDto> GetUsersInGuild(int id)
     {
         IQueryable<ApplicationUser> users = _context.Users.Include(user => user.UsersGuild);
 

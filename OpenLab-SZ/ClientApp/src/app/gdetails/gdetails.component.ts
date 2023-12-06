@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GuildService } from '../Service/guild.service';
 
@@ -62,7 +62,8 @@ export class GDetailsComponent {
 
   onLeaveGuild() {
     // http request to leave guild
-    this.guildService.leaveGuild();
+    this.guildService.leaveGuild(this.guildIdFromRoute).subscribe(result => {
+    });
 
     location.reload();
   }
@@ -76,3 +77,11 @@ interface UserDto {
   guild: string;
 }
 
+interface GuildDetailsDto {
+  id: number;
+  name: string;
+  description: string;
+  membersCount: number;
+  currentMembersCount: number;
+  users: UserDto[];
+}

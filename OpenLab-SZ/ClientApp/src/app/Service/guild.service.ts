@@ -36,12 +36,15 @@ export class GuildService {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("id", id);
 
-   return this.http.put<any>(this.baseUrl + 'userproperties/joinGuild', null, { params: queryParams })
+    return this.http.put<GuildDetailsDto>(this.baseUrl + 'userproperties/joinGuild', null, { params: queryParams })
   }
 
   //http put to leave guild
-  leaveGuild() {
-    this.http.put<any>(this.baseUrl + 'userproperties/leaveGuild', {}).subscribe()
+  leaveGuild(id: number) {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("id", id);
+
+    return this.http.put<GuildDetailsDto>(this.baseUrl + 'userproperties/joinGuild', null, { params: queryParams })
   }
 
   //http get to get all guilds
@@ -65,4 +68,13 @@ interface UserDto {
   userName: string;
   email: string;
   guild: string;
+}
+
+interface GuildDetailsDto {
+  id: number;
+  name: string;
+  description: string;
+  membersCount: number;
+  currentMembersCount: number;
+  users: UserDto[]; 
 }
