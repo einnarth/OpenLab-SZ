@@ -33,41 +33,46 @@ public class GuildsController : ControllerBase
             Name = myEntities.Name,
             Description = myEntities.Description,
             MembersCount = myEntities.MembersCount,
-            CurrentMembersCount = GetUsersCount(myEntities.Id)
+            CurrentMembersCount = GetUsersInGuild(myEntities.Id).Count()
         });
     }
 
     [HttpGet]
     [Route("getGuildById")]
-    public GuildDto GetGuildById(int id)
+    public GuildDetailsDto GetGuildById(int id)
     {
         Guild guild = _context.Guilds
             .Where(g => g.Id == id).FirstOrDefault();
-        var info = new GuildDto
+        var info = new GuildDetailsDto
         {
             Id = guild.Id,
             Name = guild.Name,
             Description = guild.Description,
             MembersCount = guild.MembersCount,
-            CurrentMembersCount = GetUsersCount(guild.Id)
+            CurrentMembersCount = GetUsersInGuild(guild.Id).Count(),
+            Users = GetUsersInGuild(guild.Id),
         };
         return info;
     }
 
 
-    //Other methods
-    private int GetUsersCount(int guildId)
+    
+
+    public IEnumerable<UserDto> GetUsersInGuild(int id)
     {
-        IQueryable<ApplicationUser> users = _context.Users.Include(user => user.UsersGuild).AsNoTracking();
+        IQueryable<ApplicationUser> users = _context.Users.Include(user => user.UsersGuild);
 
-        return users.Where(u => u.UsersGuild.Id == guildId).Count();
-    }
+        IEnumerable<ApplicationUser> finalUsers = users.Where(u => u.UsersGuild.Id == id);
 
-    private IEnumerable<ApplicationUser> GetUsersInGuild(int guildId)
-    {
-        IQueryable<ApplicationUser> users = _context.Users.Include(user => user.UsersGuild).AsNoTracking();
+        return finalUsers.Select(finalUsers => new UserDto
+        {
+            Guild = finalUsers.Guild,
+            UserName = finalUsers.UserName,
+            Email = finalUsers.Email,
+            Xp = finalUsers.Xp,
 
-        return users.Where(u => u.UsersGuild.Id == guildId);
+        });
+
     }
 
 

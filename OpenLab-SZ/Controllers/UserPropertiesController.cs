@@ -58,7 +58,7 @@ public class UserPropertiesController : ControllerBase
 
     [HttpPut]
     [Route("leaveGuild")]
-    public async Task<ActionResult>LeaveGuild(int id)
+    public ActionResult<GuildDetailsDto> LeaveGuild(int id)
     {
         var currentUser = GetCurrentUser();
         var currentGuild = _context.Guilds.Find(id);
@@ -80,7 +80,7 @@ public class UserPropertiesController : ControllerBase
 
     [HttpPut]
     [Route("joinGuild")]
-    public async Task<IActionResult> joinGuild(int id)
+    public ActionResult<GuildDetailsDto> JoinGuild(int id)
     {
         var currentUser = GetCurrentUser();
         Guild newGuild = _context.Guilds.Where(g => g.Id == id).FirstOrDefault();
@@ -94,7 +94,7 @@ public class UserPropertiesController : ControllerBase
             Description = newGuild.Description,
             MembersCount = newGuild.MembersCount,
             CurrentMembersCount = GetUsersInGuild(id).Count(),
-            Users = GetUsersInGuild(id)
+            Users = GetUsersInGuild(id),
         });
     }
 

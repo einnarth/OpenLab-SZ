@@ -8,15 +8,15 @@
 <div class="flex-container">
 
   <div>
-    <h2>Our members({{guildDetail().currentMemberCount}}/{{guildDetail().memberCount}}): </h2>
+    <h2>Our members({{guildDetail().currentMembersCount}}/{{guildDetail().membersCount}}): </h2>
     <ol>
       <li *ngFor="let user of guildDetail().users">
         {{user.userName}} ({{user.email}})
       </li>
     </ol>
   </div>
-  <button type="button" class="btn btn-primary join-btn" (click)="onJoinGuild()" *ngIf="hasGuild == false">Join us!</button>
-  <button type="button" class="btn btn-danger join-btn" (click)="onLeaveGuild()" *ngIf="hasGuild == true">Leave :((</button>
+  <button type="button" class="btn btn-primary join-btn" (click)="onJoinGuild()" *ngIf="hasGuild() == false">Join us!</button>
+  <button type="button" class="btn btn-danger join-btn" (click)="onLeaveGuild()" *ngIf="hasGuild() == true">Leave :((</button>
 
 </div>
 

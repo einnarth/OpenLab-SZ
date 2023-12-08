@@ -10,5 +10,6 @@ namespace OpenLab_SZ
         public int MembersCount { get; set; }
         public int CurrentMembersCount { get; set; }
         public IEnumerable<UserDto> Users { get; set; }
+        public bool HasGuild { get; set; }
     }
 }
