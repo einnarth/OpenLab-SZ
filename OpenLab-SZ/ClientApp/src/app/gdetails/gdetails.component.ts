@@ -32,14 +32,27 @@ export class GDetailsComponent {
     const routeParams = this.route.snapshot.paramMap;
     this.guildIdFromRoute = Number(routeParams.get('guildId'));
 
+
     //method to get info about guild on this page
     this.guildService.getInfoAboutCertainGuild(this.guildIdFromRoute).subscribe(result => { this.guildDetail.set(result) }
       , error => console.error(error));
 
+    
+    
+
+    //method to get list of users in this guild
+    this.guildService.getUsersInCertainGuild(this.guildIdFromRoute).subscribe(result => {
+      this.guildUsers = result;
+    }, error => console.error(error));
+
+
     //method to find out if user is in this guild
-    this.guildService.isInCertainGuild(this.guildIdFromRoute).subscribe(result => { this.hasGuild.set(result) }, error =>  console.error(error));
+    this.guildService.isInCertainGuild(this.guildIdFromRoute).subscribe(result => {
+      this.hasGuild = result;
+    }, error => console.error(error));
     
   }
+
 
   onJoinGuild() {
     // method for joining guild
