@@ -26,6 +26,12 @@ export class GuildService {
 
     return this.http.get<boolean>(this.baseUrl + 'userproperties/hasThisGuild', { params: queryParams });
   }
+
+  // http get to find out if user has any guild
+  hasAnyGuild() {
+    return this.http.get<boolean>(this.baseUrl + 'userproperties/isInGuild');
+  }
+
   //http put to join guild
   joinGuild(id: number) {
     let queryParams = new HttpParams();

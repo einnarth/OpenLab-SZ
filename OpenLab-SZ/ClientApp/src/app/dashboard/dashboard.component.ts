@@ -1,6 +1,8 @@
 import { Component, Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
+import { GuildService, GuildDetailsDto } from '../Service/guild.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,6 +17,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class DashboardComponent {
   http: HttpClient;
   baseUrl: string;
+
+  guildIdFromRoute: number;
 
   isForm: boolean = false;
 
@@ -39,10 +43,13 @@ export class DashboardComponent {
     email: ["", [Validators.required, Validators.email]],
   })
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private fb: FormBuilder)
+  constructor(private route: ActivatedRoute, private guildService: GuildService, http: HttpClient, @Inject('BASE_URL') baseUrl: string, private fb: FormBuilder)
   {
     this.baseUrl = baseUrl;
     this.http = http;
+
+    const routeParams = this.route.snapshot.paramMap;
+    this.guildIdFromRoute = Number(routeParams.get('guildId'));
 
     http.get<UserDto>(baseUrl + 'userproperties/getCurrent').subscribe(result => {
       this.name = result.userName; // Predpokladajme, že máte premennú this.user definovanú na strane komponentu
@@ -82,8 +89,7 @@ export class DashboardComponent {
   leaveGuild() {
     this.showPopup = false;
     // http request
-    this.http.put<any>(this.baseUrl + 'userproperties/leaveGuild', {})
-      .subscribe();
+    this.guildService.leaveGuild(this.guildIdFromRoute);
       this.guild = "Haha nemáš guildu"
   }
 

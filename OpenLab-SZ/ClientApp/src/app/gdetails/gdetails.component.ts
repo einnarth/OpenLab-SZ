@@ -16,10 +16,12 @@ import { GuildService, GuildDetailsDto } from '../Service/guild.service';
 
 export class GDetailsComponent {
 
-  guildIdFromRoute: number = 0;
+  guildIdFromRoute: number;
 
   guildDetail = signal<GuildDetailsDto>(undefined);
-  hasGuild = signal<boolean>(false);
+  hasThisGuild = signal<boolean>(false);
+  hasAnyGuild = signal<boolean>(false);
+
 
   
 
@@ -37,33 +39,33 @@ export class GDetailsComponent {
     this.guildService.getInfoAboutCertainGuild(this.guildIdFromRoute).subscribe(result => { this.guildDetail.set(result) }
       , error => console.error(error));
 
-    
-    
-
-    //method to get list of users in this guild
-    this.guildService.getUsersInCertainGuild(this.guildIdFromRoute).subscribe(result => {
-      this.guildUsers = result;
-    }, error => console.error(error));
 
 
     //method to find out if user is in this guild
     this.guildService.isInCertainGuild(this.guildIdFromRoute).subscribe(result => {
-      this.hasGuild = result;
+      this.hasThisGuild.set(result)
     }, error => console.error(error));
-    
+
+    // method to find out if user has any guild
+    this.guildService.hasAnyGuild().subscribe(result => {
+      this.hasAnyGuild.set(result);
+    });
+
   }
 
 
   onJoinGuild() {
     // method for joining guild
     this.guildService.joinGuild(this.guildIdFromRoute).subscribe(result => { this.guildDetail.set(result) });
-    this.hasGuild.set(true);
+    this.hasThisGuild.set(true);
+    this.hasAnyGuild.set(true);
   }
 
   onLeaveGuild() {
     // http request to leave guild
     this.guildService.leaveGuild(this.guildIdFromRoute).subscribe(result => { this.guildDetail.set(result) });
-    this.hasGuild.set(false);
+    this.hasThisGuild.set(false);
+    this.hasAnyGuild.set(false);
   }
 
 }

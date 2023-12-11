@@ -119,12 +119,11 @@ public class UserPropertiesController : ControllerBase
 
     [HttpGet]
     [Route("isInGuild")]
-    public bool IsInGuild(int id)
+    public bool IsInGuild()
 
     {
-
         var user = GetCurrentUser();
-        return user.UsersGuild is null;
+        return !(user.UsersGuild is null);
     }
 
     [HttpGet]
