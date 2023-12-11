@@ -79,6 +79,25 @@ public class UserPropertiesController : ControllerBase
     }
 
     [HttpPut]
+    [Route("leaveGuildWithoutId")]
+    public ActionResult<UserDto> LeaveGuildWithoutId()
+    {
+        var currentUser = GetCurrentUser();
+        currentUser.UsersGuild = null;
+        _context.SaveChanges();
+
+        return Ok(new UserDto
+        {
+            Guild = currentUser.Guild,
+            UserName = currentUser.UserName,
+            Email = currentUser.Email,
+            Xp = currentUser.Xp,
+        });
+
+
+    }
+
+    [HttpPut]
     [Route("joinGuild")]
     public ActionResult<GuildDetailsDto> JoinGuild(int id)
     {

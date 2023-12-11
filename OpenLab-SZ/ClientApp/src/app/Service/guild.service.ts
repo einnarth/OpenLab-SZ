@@ -48,6 +48,12 @@ export class GuildService {
     return this.http.put<GuildDetailsDto>(this.baseUrl + 'userproperties/leaveGuild', null, { params: queryParams })
   }
 
+  //http put to leave guild without id
+  leaveGuildWithoutId() {
+
+    return this.http.put<UserDto>(this.baseUrl + 'userproperties/leaveGuildWithoutId', {})
+  }
+
   //http get to get all guilds
   getAllGuilds() {
     return this.http.get<GuildDto[]>(this.baseUrl + 'guilds/getGuilds')

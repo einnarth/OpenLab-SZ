@@ -89,7 +89,7 @@ export class DashboardComponent {
   leaveGuild() {
     this.showPopup = false;
     // http request
-    this.guildService.leaveGuild(this.guildIdFromRoute);
+    this.guildService.leaveGuildWithoutId().subscribe();
       this.guild = "Haha nemáš guildu"
   }
 
