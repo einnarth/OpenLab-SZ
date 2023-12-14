@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { GuildService } from '../Service/guild.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-guilds',
@@ -9,14 +10,25 @@ import { GuildService } from '../Service/guild.service';
 export class GuildsComponent {
 
   public guilds: GuildDto[] = [];
+  public guildForm: FormGroup;
+  public isFormVisible = false;
 
-
-  constructor(private guildService: GuildService) {
+  constructor(private guildService: GuildService, private formBuilder: FormBuilder) {
     this.guildService.getAllGuilds().subscribe(result => {
       this.guilds = result;
     }, error => console.error(error));
-  }
 
+    this.guildForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      membersCount: ['', [Validators.required, Validators.min(1)]],
+    });
+
+  }
+  toggleFormVisibility() {
+    const formContainer = document.getElementById('guildFormContainer');
+    formContainer.style.display = (formContainer.style.display === 'none') ? 'block' : 'none';
+  }
 }
 
 interface GuildDto {
