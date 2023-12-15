@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { GuildService } from '../Service/guild.service';
+import { GuildService, GuildDto } from '../Service/guild.service';
+
 
 @Component({
   selector: 'app-guilds',
@@ -16,13 +17,4 @@ export class GuildsComponent {
       this.guilds = result;
     }, error => console.error(error));
   }
-
-}
-
-interface GuildDto {
-  id: number;
-  name: string;
-  description: string;
-  membersCount: number;
-  currentMembersCount: number;
 }
