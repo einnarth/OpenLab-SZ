@@ -34,6 +34,8 @@ export class DashboardComponent {
   constructor(private userService: UserService, private guildService: GuildService, private fb: FormBuilder) {
     this.userService.getCurrentUser().subscribe(result => { this.userDetail.set(result) }
       , error => console.error(error));
+
+
   }
 
   // Metóda na zobrazenie vyskakovacieho okna

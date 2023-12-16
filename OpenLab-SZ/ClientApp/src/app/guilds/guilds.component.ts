@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { GuildService } from '../Service/guild.service';
+import { GuildService, GuildDto } from '../Service/guild.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
@@ -30,12 +30,4 @@ export class GuildsComponent {
     const formContainer = document.getElementById('guildFormContainer');
     formContainer.style.display = (formContainer.style.display === 'none') ? 'block' : 'none';
   }
-}
-
-interface GuildDto {
-  id: number;
-  name: string;
-  description: string;
-  membersCount: number;
-  currentMembersCount: number;
 }

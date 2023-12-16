@@ -36,7 +36,7 @@ import {GDetailsComponent} from "./gdetails/gdetails.component";
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
-      { path: 'dashboard', component: DashboardComponent },
+      { path: 'dashboard', component: DashboardComponent, canActivate: [AuthorizeGuard] },
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
       { path: 'guilds', component: GuildsComponent, canActivate: [AuthorizeGuard]},
       { path: '', component: GDetailsComponent, canActivate: [AuthorizeGuard] },

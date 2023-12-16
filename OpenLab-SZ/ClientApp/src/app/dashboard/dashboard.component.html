@@ -2,7 +2,7 @@
 <div *ngIf="isForm == false" >
   <p>You are logged as: {{userDetail().userName}}</p>
   <p>Email: {{userDetail().email}}</p>
-  <p>Guild: {{userDetail().guild}}</p>
+  <p *ngIf="userDetail().guild; else noGuild" >Guild: {{userDetail().guild}}</p>
 
   <p>Current xp: {{userDetail().xp}}</p>
 
