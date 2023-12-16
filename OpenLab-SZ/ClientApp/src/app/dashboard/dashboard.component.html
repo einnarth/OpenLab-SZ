@@ -1,10 +1,10 @@
 <!-- Main view -->
 <div *ngIf="isForm == false" >
-  <p>You are logged as: {{name}}</p>
-  <p>Email: {{email}}</p>
-  <p *ngIf="selectedGuild">Guild: {{ guild }}</p>
+  <p>You are logged as: {{userDetail().userName}}</p>
+  <p>Email: {{userDetail().email}}</p>
+  <p>Guild: {{userDetail().guild}}</p>
 
-  <p>Current xp: {{xp}}</p>
+  <p>Current xp: {{userDetail().xp}}</p>
 
   <button style="margin-top: 20px; margin-right: 20px" type="button" class="btn btn-primary" (click)="openForm()">Zmeniť údaje</button>
 
@@ -35,4 +35,11 @@
 
   <button type="button" class="btn btn-danger" (click)="closeForm()" style="margin-top: 20px">Späť na Dashboard</button>
 </div>
+
+
+<!-- Templates -->
+
+<ng-template #noGuild>
+  <p> You are not a member of any guild, choose favourite <a [title]="'choose your guild'" [routerLink]="['/guilds']">here</a> </p>
+</ng-template>
 

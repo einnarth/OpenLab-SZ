@@ -30,11 +30,11 @@ public class UserPropertiesController : ControllerBase
 
     [HttpGet]
     [Route("getCurrent")]
-    public ActionResult<ApplicationUser> Get()
+    public ActionResult<UserDto> Get()
     {
-        var currentUser = GetCurrentUser();
+        ApplicationUser currentUser = GetCurrentUser();
 
-        var info = new ApplicationUser
+        var info = new UserDto
         {
             Xp = currentUser.Xp,
             UserName = currentUser.UserName,
@@ -88,7 +88,7 @@ public class UserPropertiesController : ControllerBase
 
         return Ok(new UserDto
         {
-            Guild = currentUser.Guild,
+            Guild = currentUser.UsersGuild?.Name,
             UserName = currentUser.UserName,
             Email = currentUser.Email,
             Xp = currentUser.Xp,

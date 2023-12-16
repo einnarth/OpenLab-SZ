@@ -1,6 +1,7 @@
 import { Component, signal, Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GuildService, GuildDetailsDto } from '../Service/guild.service';
+import { UserService } from '../Service/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,12 +21,8 @@ export class GDetailsComponent {
 
   guildDetail = signal<GuildDetailsDto>(undefined);
   hasThisGuild = signal<boolean>(false);
-  hasAnyGuild = signal<boolean>(false);
+  hasAnyGuild = signal<boolean>(true);
 
-
-  
-
-  //hasGuild: boolean = false;
 
   constructor(private route: ActivatedRoute, private guildService: GuildService) { }
 

@@ -7,5 +7,19 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
 
-  constructor() { }
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
+
+  // prerobiť na http metódu vracajúcu UserDto objekt
+  getCurrentUser(){
+    return this.http.get<UserDto>(this.baseUrl + 'userproperties/getCurrent');
+  }
+}
+  
+
+
+export interface UserDto {
+  xp: number;
+  userName: string;
+  email: string;
+  guild: string;
 }

@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
+import { UserService, UserDto } from '../Service/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -71,13 +72,6 @@ export interface GuildDto {
   description: string;
   membersCount: number;
   currentMembersCount: number;
-}
-
-export interface UserDto {
-  xp: number;
-  userName: string;
-  email: string;
-  guild: string;
 }
 
 export interface GuildDetailsDto {
