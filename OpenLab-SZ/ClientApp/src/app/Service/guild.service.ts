@@ -60,10 +60,14 @@ export class GuildService {
     return this.http.get<GuildDto[]>(this.baseUrl + 'guilds/getGuilds')
   }
 
-  //hhtp get to get if user has guildid
-IsInGuild() {
+  //http get to get if user has guildid
+  IsInGuild() {
     return this.http.get<boolean>(this.baseUrl + 'IsInGuild')
-}
+  }
+
+  CreateGuild(name: string, description: string, membersCount: number) {
+    console.log("Názov: " + name + " Popis: " + description + " Maximálny počet členov: " + membersCount);
+  }
 }
 
 export interface GuildDto {

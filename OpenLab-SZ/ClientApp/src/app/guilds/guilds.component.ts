@@ -30,4 +30,8 @@ export class GuildsComponent {
     const formContainer = document.getElementById('guildFormContainer');
     formContainer.style.display = (formContainer.style.display === 'none') ? 'block' : 'none';
   }
+
+  onCreateGuild() {
+    this.guildService.CreateGuild(this.guildForm.value.name, this.guildForm.value.description, this.guildForm.value.membersCount)
+  }
 }

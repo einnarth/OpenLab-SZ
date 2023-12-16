@@ -37,7 +37,7 @@
       <input type="number" id="membersCount" formControlName="membersCount" />
     </div>
     <div>
-      <button type="submit" [disabled]="guildForm.invalid">Vytvoriť Guildu</button>
+      <button type="submit" [disabled]="guildForm.invalid" (click)="onCreateGuild()">Vytvoriť Guildu</button>
     </div>
   </form>
 </div>
