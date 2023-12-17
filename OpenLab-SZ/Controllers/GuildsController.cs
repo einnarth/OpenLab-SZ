@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OpenLab_SZ.Data;
 using OpenLab_SZ.Models;
+using OpenLab_SZ.Controllers;
+using System.Security.Claims;
 
 namespace OpenLab_SZ.Controllers;
 
@@ -51,6 +53,8 @@ public class GuildsController : ControllerBase
             MembersCount = guild.MembersCount,
             CurrentMembersCount = GetUsersInGuild(guild.Id).Count(),
             Users = GetUsersInGuild(guild.Id),
+            HasUserAnyGuild = IsInGuild(),
+            HasUserThisGuild = HasThisGuild(id),
         };
         return info;
     }
@@ -74,6 +78,36 @@ public class GuildsController : ControllerBase
         });
 
     }
+
+    [HttpGet]
+    [Route("isInGuild")]
+    public bool IsInGuild()
+
+    {
+        var user = GetCurrentUser();
+        return !(user.UsersGuild is null);
+    }
+
+    [HttpGet]
+    [Route("hasThisGuild")]
+    public bool HasThisGuild(int id)
+    {
+        Guild currentGuild = _context.Guilds.Where(x => x.Id == id).FirstOrDefault();
+        var currentUser = GetCurrentUser();
+        return currentUser.UsersGuild == currentGuild;
+
+    }
+
+    public Models.ApplicationUser GetCurrentUser()
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        Models.ApplicationUser? user = _context.ApplicationUsers
+            .Include(user => user.UsersGuild)
+            .SingleOrDefault(user => user.Id == userId);
+
+        return user!;
+    }
+
 
 
 

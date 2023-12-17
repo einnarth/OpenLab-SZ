@@ -1,8 +1,7 @@
 import { Component, signal, Injectable } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { GuildService, GuildDto } from '../Service/guild.service';
+import { GuildService, } from '../Service/guild.service';
 import { UserService, UserDto } from '../Service/user.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,7 +21,6 @@ export class DashboardComponent {
 
   // variables for showing/hidding content
   isForm: boolean = false;
-  showSelect: boolean = true;
   showPopup = false;
 
   // update form

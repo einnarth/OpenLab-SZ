@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserService, UserDto } from '../Service/user.service';
+import { UserDto } from '../Service/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,21 +16,6 @@ export class GuildService {
     queryParams = queryParams.append("id", id);
 
     return this.http.get<GuildDetailsDto>(this.baseUrl + 'guilds/getGuildById', { params: queryParams });
-  }
-
- 
-
-  // http get to find out if user is in certain guild
-  isInCertainGuild(id: number) {
-    let queryParams = new HttpParams();
-    queryParams = queryParams.append("id", id);
-
-    return this.http.get<boolean>(this.baseUrl + 'userproperties/hasThisGuild', { params: queryParams });
-  }
-
-  // http get to find out if user has any guild
-  hasAnyGuild() {
-    return this.http.get<boolean>(this.baseUrl + 'userproperties/isInGuild');
   }
 
   //http put to join guild
@@ -60,11 +45,6 @@ export class GuildService {
     return this.http.get<GuildDto[]>(this.baseUrl + 'guilds/getGuilds')
   }
 
-  //http get to get if user has guildid
-  IsInGuild() {
-    return this.http.get<boolean>(this.baseUrl + 'IsInGuild')
-  }
-
   CreateGuild(name: string, description: string, membersCount: number) {
     console.log("Názov: " + name + " Popis: " + description + " Maximálny počet členov: " + membersCount);
   }
@@ -84,6 +64,7 @@ export interface GuildDetailsDto {
   description: string;
   membersCount: number;
   currentMembersCount: number;
-  users: UserDto[]; 
+  users: UserDto[];
+  hasUserAnyGuild: boolean;
+  hasUserThisGuild: boolean;
 }
-

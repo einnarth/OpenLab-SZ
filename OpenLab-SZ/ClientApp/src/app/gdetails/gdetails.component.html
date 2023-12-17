@@ -15,9 +15,9 @@
       </li>
     </ol>
   </div>
-  <button type="button" class="btn btn-primary join-btn" (click)="onJoinGuild()" *ngIf="hasThisGuild() == false && hasAnyGuild() == false">Join us!</button>
-  <button type="button" class="btn btn-danger join-btn" (click)="onLeaveGuild()" *ngIf="hasThisGuild() == true">Leave :((</button>
-  <div class=" btn-secondary join-btn" *ngIf="hasAnyGuild() == true && hasThisGuild() == false">Leave your current guild if you want to join us!</div>
+  <button type="button" class="btn btn-primary join-btn" (click)="onJoinGuild()" *ngIf="guildDetail().hasUserThisGuild == false && guildDetail().hasUserAnyGuild == false">Join us!</button>
+  <button type="button" class="btn btn-danger join-btn" (click)="onLeaveGuild()" *ngIf="guildDetail().hasUserThisGuild == true">Leave :((</button>
+  <div class=" btn-secondary join-btn" *ngIf="guildDetail().hasUserAnyGuild == true && guildDetail().hasUserThisGuild == false">Leave your current guild if you want to join us!</div>
  </div>
 
   

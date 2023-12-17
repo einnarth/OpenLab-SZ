@@ -72,7 +72,9 @@ public class UserPropertiesController : ControllerBase
             Description = currentGuild.Description,
             MembersCount = currentGuild.MembersCount,
             CurrentMembersCount = GetUsersInGuild(id).Count(),
-            Users = GetUsersInGuild(id)
+            Users = GetUsersInGuild(id),
+            HasUserAnyGuild = IsInGuild(),
+            HasUserThisGuild = HasThisGuild(id),
         });
 
         
@@ -114,7 +116,9 @@ public class UserPropertiesController : ControllerBase
             MembersCount = newGuild.MembersCount,
             CurrentMembersCount = GetUsersInGuild(id).Count(),
             Users = GetUsersInGuild(id),
-        });
+            HasUserAnyGuild = IsInGuild(),
+            HasUserThisGuild = HasThisGuild(id),
+        }) ;
     }
 
     [HttpGet]
