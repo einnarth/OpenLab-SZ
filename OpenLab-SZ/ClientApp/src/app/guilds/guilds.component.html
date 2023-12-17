@@ -20,24 +20,24 @@
     </div>
   </div>
 </div>
-<button (click)="toggleFormVisibility()">Vytvoriť novú Guildu</button>
+<button (click)="toggleFormVisibility()" class="btn btn-primary" style="margin-top: 20px;">Vytvoriť novú Guildu</button>
 
 <div id="guildFormContainer" style="display: none;">
   <form [formGroup]="guildForm" >
-    <div>
+    <div class="form-group">
       <label for="name">Meno Guildy:</label>
-      <input type="text" id="name" formControlName="name" />
+      <input type="text" id="name" class="form-control" formControlName="name"/>
     </div>
-    <div>
+    <div class="form-group">
       <label for="description">Popis Guildy:</label>
-      <textarea id="description" formControlName="description"></textarea>
+      <textarea id="description" class="form-control" formControlName="description"></textarea>
     </div>
-    <div>
+    <div class="form-group">
       <label for="membersCount">Maximálny počet členov:</label>
-      <input type="number" id="membersCount" formControlName="membersCount" />
+      <input type="number" class="form-control" id="membersCount" formControlName="membersCount" />
     </div>
     <div>
-      <button type="submit" [disabled]="guildForm.invalid" (click)="onCreateGuild()">Vytvoriť Guildu</button>
+      <button type="submit" class="btn btn-success" [disabled]="guildForm.invalid" (click)="onCreateGuild()" style="margin-bottom: 20px;">Vytvoriť Guildu</button>
     </div>
   </form>
 </div>
