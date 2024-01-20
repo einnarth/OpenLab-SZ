@@ -15,6 +15,7 @@ import { AuthorizeInterceptor } from 'src/api-authorization/authorize.intercepto
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {GuildsComponent} from "./guilds/guilds.component";
 import {GDetailsComponent} from "./gdetails/gdetails.component";
+import {GuildNameSearch,} from "./guilds/search_pipe";
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import {GDetailsComponent} from "./gdetails/gdetails.component";
     DashboardComponent,
     GuildsComponent,
     GDetailsComponent,
+    GuildNameSearch
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

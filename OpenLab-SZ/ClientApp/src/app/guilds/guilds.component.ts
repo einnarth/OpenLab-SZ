@@ -13,6 +13,7 @@ export class GuildsComponent {
   public guilds: GuildDto[] = [];
   public guildForm: FormGroup;
   public isFormVisible = false;
+  search: string = "";
 
   constructor(private guildService: GuildService, private formBuilder: FormBuilder) {
     this.guildService.getAllGuilds().subscribe(result => {
