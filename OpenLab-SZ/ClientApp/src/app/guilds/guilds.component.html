@@ -1,4 +1,6 @@
 <h1>Currently existing guilds!</h1>
+<input class="search"  type="text" placeholder="🔍︎ Search guild" [(ngModel)]="search">
+
 
 <div class="accordion" id="accordionExample">
   <div class="accordion-item" *ngFor="let guild of guilds | filter: search; let i = index">
@@ -41,6 +43,5 @@
     </div>
   </form>
 </div>
-<input type="text" placeholder="search" [(ngModel)]="search">
 
 
